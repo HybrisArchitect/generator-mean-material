@@ -40,31 +40,40 @@ Generator.prototype.askFor = function askFor() {
 			type: 'confirm',
 			message: 'May only authenticated users be able to access this route?',
 			default: true,
-			when: function () {
+            when: function() {
 				return self.config.get('features').auth;
 			}
 		},
 		{
 			name: 'role',
 			type: 'list',
-			message: 'What role may access thus route, Milord?',
+			message: 'What role may access the route?',
 			default: 1,
 			choices: srvConfig.userRoles,
 			when: function (answers) {
 				return answers.secure;
 			}
-		}
+        },
+        {
+            name: 'model',
+            message: 'Provide location to your model'
+       }
 	];
 
 	this.prompt(prompts, function (props) {
 		if (props.route.charAt(0) !== '/') {
 			props.route = '/' + props.route;
 		}
-
 		this.route = props.route;
 		this.secure = props.secure || false;
-		this.role = props.role || false;
-
+        this.role = props.role || false;
+        this.model = props.model || false;
+        if (props.model) {
+            var modelEnum = ngUtil.evaluateModel(props.model, this);
+            if (modelEnum) {
+                this.modelEnum = modelEnum;
+            }
+        }
 		done();
 	}.bind(this));
 };

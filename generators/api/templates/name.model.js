@@ -15,14 +15,19 @@ var createdModifiedPlugin = require('mongoose-createdmodified').createdModifiedP
 /**
  * The <%= modelName %> model definition
  * @type {Object}
- * @property {String} name - The name of this <%= name %>
- * @property {String} info - Details about this <%= name %>
- * @property {Boolean} active - Flag indicating this <%= name %> is active
+ <% modelEnum.model.forEach(function(el){ %>
+* @property {<%=el.model.type%>} <%=el.name%> - <%=el[description]%>
+ <%})%>
  */
 var <%= modelName %>Definition = {
-	name: {type: String, required: true},
-	info: String,
-	active: Boolean
+	// name: {type: String, required: true},
+	// info: String,
+	// active: Boolean
+    <%modelEnum.model.forEach(function(el,idx) { %>
+        <%= el.name %> : {
+            type : <%= el.model.type %>
+        }<% if(modelEnum.length - 1  != idx) { %>,<%}%>
+    <%});%>        
 };
 
 /**
@@ -44,9 +49,9 @@ var <%= modelName %>Schema = new mongoose.Schema(<%= modelName %>Definition);<% 
 /**
  * Validations
  */
-<%= modelName %>Schema
-	.path('name')
-	.validate(validateUniqueName, 'The specified name is already in use.');
+// <%= modelName %>Schema
+// 	.path('name')
+// 	.validate(validateUniqueName, 'The specified name is already in use.');
 
 /**
  *  The registered mongoose model instance of the <%= modelName %> model

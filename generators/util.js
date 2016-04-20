@@ -1,6 +1,7 @@
 'use strict';
 var path = require('path');
 var fs = require('fs');
+var yaml = require('js-yaml');
 
 module.exports = {
 	rewrite: rewrite,
@@ -8,7 +9,26 @@ module.exports = {
 	appName: appName,
 	processDirectory: processDirectory,
 	copyTemplates: copyTemplates,
-	relativeUrl: relativeUrl
+    relativeUrl: relativeUrl,
+    evaluateModel: evaluateModel
+};
+
+function evaluateModel(arg) {
+    console.log("Eavaluating the Model.....");
+    var ret = null;
+    if (arg) {
+        try {
+            var content = fs.readFileSync(arg);
+            //var model_enum = yaml.safeLoad(content);
+            var model_enum = JSON.parse(content);
+            ret = model_enum;
+        } catch (err) {
+            console.error("Model Failed to parse :" + err.message);
+            console.error(err.stack);
+        }
+    }
+    //self.modelEnum = ret;
+    return ret;
 };
 
 function rewriteFile(args) {
@@ -140,7 +160,8 @@ function processDirectory(self, source, destination) {
 				}
 			}
 		} catch (e) {
-			console.error("File: %s, Error: %s", f, e);
+            console.error("File: %s, Error: %s", f, e.message);
+            console.error(e.stack);
 			throw e;
 		}
 	});

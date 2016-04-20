@@ -14,39 +14,52 @@
         </section>
 
         <form name="createForm">
-
-            <section class="section slim" layout="column">
-				<span layout="row" layout-align="start center">
-					<span flex="33"><%= modelName %> is active</span>
-					<md-switch name="active" class="no-label" aria-label="<%= name %> active" ng-model="create.<%= name %>.active"></md-switch>
-				</span>
-            </section>
-
             <section class="section" layout="column">
-
-				<span layout="row" layout-sm="column">
-					<md-input-container flex>
-                        <label>Name</label>
-                        <input name="name" ng-model="create.<%= name %>.name"
-                               ng-model-options="{updateOn: 'default blur', debounce: {'default': 500, 'blur': 0}}"
-                               required mongoose-error remote-unique="<%= modelName %>">
-                        <div ng-messages="createForm.name.$error">
-                            <div ng-message="required">Name is required</div>
-                            <div ng-message="mongoose">Name already in use</div>
-                            <div ng-message="remote-unique">Name already in use</div>
-                        </div>
-                    </md-input-container>
-				</span>
-
-				<span layout="row" layout-sm="column">
-					<md-input-container flex class="last">
-                        <label>Info</label>
-                        <textarea name="info" ng-model="create.<%= name %>.info"></textarea>
-                    </md-input-container>
-				</span>
-
-            </section>
-
+ <% modelEnum.model.forEach(function(el) { %>
+                <span layout="row" layout-sm="column">
+                    <md-input-container flex>
+                        <label> 
+                            <% if(el.ui && el.ui.humanName){ %>
+                              <%= el.ui.humanName %>
+                            <% } else { %>
+                              <%= el.name %>
+                            <%}%>
+                         </label>
+    <% if(el.model.type === "String" && el.model['enum']){ %>
+                       <md-select ng-model="create.<%= name %>.<%= el.name %>">
+                            <% el.model.enum.forEach(function(opt) {%>
+                              <md-option value=<%= opt %>>
+                                <%= opt %> 
+                              </md-option>
+                            <%})%>
+                       </md-select>            
+    <% } else if(el.model.type === "String") {%>
+                        <input name="<%= el.name %>" ng-model="create.<%= name %>.<%= el.name %>" 
+                            ng-model-options="{updateOn: 'default blur', debounce: {'default': 500, 'blur': 0}}"
+                            <% if(el.model['required']) {%> required <%}%>/>
+                       
+                       <div ng-messages="createForm.<%= el.name %>.$error">
+                           <% if(el.model.required) {%>
+                           <div ng-message="required"><% if(el.ui && el.ui.messages && el.ui.messages.required) {%><%= el.ui.messages.required%> <%} else {%>This is a required field<%}%></div>
+                           <%}%>
+                       </div>           
+    <%} else if(el.model.type === "Number"){%>
+                       <input type="number" name="<%= el.name %>" ng-model="create.<%= name %>.<%= el.name %>" 
+                            ng-model-options="{updateOn: 'default blur', debounce: {'default': 500, 'blur': 0}}"
+                            <% if(el.model['required']) {%> required <%}%>/>
+                       
+                       <div ng-messages="createForm.<%= el.name %>.$error">
+                           <% if(el.model.required) {%>
+                           <div ng-message="required"><% if(el.ui && el.ui.messages && el.ui.messages.required) {%><%= el.ui.messages.required%> <%} else {%>This is a required field <%}%></div>
+                           <%}%>
+                       </div>
+    <%} else if(el.model.type === "Boolean") {%>
+                    <md-switch ng-model="create.<%= name %>.<%= el.name %>"><%= el.description %></md-switch>
+    <%}%>
+                </md-input-container>
+            </span>                    
+<%})%>
+          </section>
         </form>
 
     </md-content>

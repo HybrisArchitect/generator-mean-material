@@ -1,0 +1,60 @@
+{
+	"uiTitle" : "Model",
+	"model":
+		[
+			{
+				"name" : "Model",
+				"description" : "Model of Mac",
+				"model" : {
+					"type" : "String",
+					"required" : true
+				},
+				"ui" : {
+					"humanName" : "Mac Model",
+					"messages" : {
+						"required" : "Please provide a Model Specification",
+						"unique" : "You have already specified this model"
+					}
+				}
+			},
+			{
+				"name" : "ScreenSize",
+				"description" : "Screen Size of the Mac",
+				"model" : {
+					"type" : "Number",
+					"required" :  false
+				},
+				"ui" : {
+                    "humanName" : "Screen Size"
+				}
+			},
+			{
+				"name" :  "Color",
+				"description" : "Color of Mac",
+				"model" : {
+					"type" : "String",
+					"required" : true,
+					"enum" : [
+						"Silver",
+						"Grey",
+						"Gold"
+					]
+				},
+				"ui" : {
+					"humanName" :  "Device Color"
+					
+				}
+			},
+			{
+				"name" : "Available",
+				"description" : "Is the model available",
+				"model" : {
+					"type" : "Boolean",
+					"required" :  true
+				},
+				"ui" : {
+					"humanName" : "Model Available"
+				}
+			}
+		]
+}

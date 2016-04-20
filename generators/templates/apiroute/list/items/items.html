@@ -46,11 +46,11 @@
 			<md-item-content>
 
 				<div class="md-tile-left">
-				    <list-image string="{{<%= name %>.name}}"></list-image>
+				    <list-image string="{{<%= name %>.<%= modelEnum.uiTitle %>}}"></list-image>
 				</div>
 
 				<div class="md-tile-content" flex="66">
-					<h3>{{<%= name %>.name}}</h3>
+					<h3>{{<%= name %>.<%= modelEnum.uiTitle%>}}</h3>
                     <p ng-show="<%= name %>.info">{{<%= name %>.info}}</p>
 				</div>
 

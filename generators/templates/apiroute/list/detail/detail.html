@@ -26,14 +26,16 @@
 		</span>
 
 		<span layout="row" layout-sm="column" class="detail-info">
-			<span flex="45">Name</span>
-			<span flex>{{::detail.<%= name %>.name}}</span>
+			<span flex="45"><%= modelEnum.uiTitle%></span>
+			<span flex>{{::detail.<%= name %>.<%= modelEnum.uiTitle%>}}</span>
 		</span>
-
-		<span ng-if="detail.<%= name %>.info" layout="row" layout-sm="column" class="detail-info">
-			<span flex="45">Info</span>
-			<span flex>{{::detail.<%= name %>.info}}</span>
-		</span>
+<% modelEnum.model.forEach((el)=>{ %>
+		<span layout="row" layout-sm="column" class="detail-info">
+			<span flex="45"><%= el.ui.humanName%></span>
+			<span flex>{{::detail.<%= name %>.<%= el.name%>}}</span>
+		</span>		
+<%});%>
+		
 
     </section>
 

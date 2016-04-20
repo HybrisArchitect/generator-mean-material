@@ -47,7 +47,7 @@ Generator.prototype.askFor = function askFor() {
 		{
 			name: 'role',
 			type: 'list',
-			message: 'What role may access thus route, Milord?',
+			message: 'What role may access the route?',
 			default: 1,
 			choices: srvConfig.userRoles,
 			when: function (answers) {
@@ -58,7 +58,11 @@ Generator.prototype.askFor = function askFor() {
 			name: 'menuItem',
 			message: 'How should the menu item be labelled?',
 			default: this._.capitalize(name)
-		}
+        },
+        {
+            name: 'model',
+            message: 'Provide the path to the model'
+        }
 	];
 
 	this.prompt(prompts, function (props) {
@@ -67,7 +71,12 @@ Generator.prototype.askFor = function askFor() {
 		this.apiURL = props.apiUrl;
 		this.secure = props.secure || false;
 		this.role = props.role || false;
-		this.menuItem = props.menuItem;
+        this.menuItem = props.menuItem;
+        if (props.model) {
+            this.modelEnum = ngUtil.evaluateModel(props.model);
+        } else {
+            console.log("ERROR :: BAD MODEL!");
+        }
 		done();
 	}.bind(this));
 };

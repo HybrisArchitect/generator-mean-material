@@ -28,7 +28,7 @@ function CrudController(model, idName) {
 	// set id name if defined, defaults to 'id'
 	if (idName) {
 		this.idName = String(idName);
-	}
+    }
 }
 
 CrudController.prototype = {
@@ -93,10 +93,10 @@ CrudController.prototype = {
 	 * @returns {ServerResponse} Array of all documents for the {@link CrudController#model} model
 	 * or the empty Array if no documents have been found
 	 */
-	index: function (req, res) {
+    index: function(req, res) {
 		var query = req.query;
 
-		if (this.omit.lenght) {
+		if (this.omit.length) {
 			query = _.omit(query, this.omit);
 		}
 

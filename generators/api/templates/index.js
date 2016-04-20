@@ -45,11 +45,11 @@ router.route('*').all(addRequestContext, isAuthenticated, addUserContext);<% } %
 
 // register <%= name %> routes
 router.route('/')
-	.get(controller.index)
-	.post(controller.create);
+	.get(controller.index.bind(controller))
+	.post(controller.create.bind(controller));
 
 router.route('/' + controller.paramString)
-	.get(controller.show)
-	.delete(controller.destroy)
-	.put(controller.update)
-	.patch(controller.update);
+	.get(controller.show.bind(controller))
+	.delete(controller.destroy.bind(controller))
+	.put(controller.update.bind(controller))
+	.patch(controller.update.bind(controller));

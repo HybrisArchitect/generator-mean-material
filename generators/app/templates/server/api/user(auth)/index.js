@@ -44,26 +44,26 @@ router.route('*')
 
 // register user routes
 router.route('/')
-	.get(isAdmin, controller.index)
-	.post(isAdmin, controller.create);
+	.get(isAdmin, controller.index.bind(controller))
+	.post(isAdmin, controller.create.bind(controller));
 
 // fetch authenticated user info
 router.route('/me')
-	.get(controller.me);
+	.get(controller.me.bind(controller));
 
 // user crud routes
 router.route('/' + controller.paramString)
-	.get(isAdmin, controller.show)
-	.delete(isAdmin, controller.destroy)
-	.put(isAdmin, controller.update)
-	.patch(isAdmin, controller.update);
+	.get(isAdmin, controller.show.bind(controller))
+	.delete(isAdmin, controller.destroy.bind(controller))
+	.put(isAdmin, controller.update.bind(controller))
+	.patch(isAdmin, controller.update.bind(controller));
 
 // set the password for a user
 router.route('/' + controller.paramString +  '/password')
-	.put(controller.changePassword)
-	.patch(controller.changePassword);
+	.put(controller.changePassword.bind(controller))
+	.patch(controller.changePassword.bind(controller));
 
 // admin only - administrative tasks for a user resource (force set password)
 router.route('/' + controller.paramString + '/admin')
-	.put(isAdmin, controller.setPassword)
-	.patch(isAdmin, controller.setPassword);
+	.put(isAdmin, controller.setPassword.bind(controller))
+	.patch(isAdmin, controller.setPassword.bind(controller));
