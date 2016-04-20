@@ -1,13 +1,13 @@
-# generator-material-app
+# generator-mean-material
 
-Yet another yeoman generator for scaffolding a simple MEAN stack application using some material design elements.
+Yet another yeoman generator for scaffolding a simple MEAN stack application using some material design elements. A fork of Michael Krone's excellent [Angular Material App generator](https://github.com/michaelkrone/generator-material-app).
+Our idea is to bring all the dependencies upto date, and add a few enhancements, like a configuration driven Model and Controller generation. Additionally, we will also bring the look and feel of the app to more in line with material app.
 
 ![User administration](https://michaelkrone.github.io/generator-material-app/screenshots/users-detail.png)
 
-###### This project is still under heavy development.
-
 ## Features
 The generator supports group based ACL's and socket.io communication with the server API.
+Model driven API and API Route creation.
 
 
 ## Install
@@ -19,7 +19,7 @@ $ npm install generator-material-app
 To quickly scaffold an application use the following commands (Answer all questions with hitting the enter key):
 ```bash
 $ mkdir app && cd $_
-$ yo material-app
+$ yo mean-material
 $ gulp build
 $ npm start
 ```

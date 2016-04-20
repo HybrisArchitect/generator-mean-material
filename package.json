@@ -1,8 +1,8 @@
 {
-  "name": "generator-material-app",
-  "version": "0.1.3",
+  "name": "generator-mean-material",
+  "version": "0.1.0",
   "description": "Generates a material web application with AngularJS, Express and Mongoose",
-  "repository": "https://github.com/michaelkrone/generator-material-app.git",
+  "repository": "https://github.com/capiotsoftware/generator-mean-material.git",
   "keywords": [
     "yeoman-generator"
   ],
@@ -10,6 +10,7 @@
     "async": "^0.9.0",
     "chalk": "^1.1.1",
     "glob": "^5.0.14",
-    "yeoman-generator": "^0.20.3"
+    "yeoman-generator": "^0.20.3",
+    "js-yaml" : "~3.5.5"
   }
 }

@@ -36,6 +36,9 @@ function ParamController(model, idName, paramName) {
 
 	this.paramName = String(paramName);
 	this.paramString = ':' + this.paramName;
+
+	// register param name route parameter
+	router.param(this.paramName, this.registerRequestParameter.bind(this));
 }
 
 ParamController.prototype = {
@@ -94,7 +97,7 @@ ParamController.prototype = {
 				return res.handleError(err);
 			}
 
-			req[this.paramName] = updated;
+			req[self.paramName] = updated;
 			return res.ok(self.getResponseObject(updated));
 		});
 	},
@@ -106,13 +109,14 @@ ParamController.prototype = {
 	 * @param {ServerResponse} res - The outgoing response object
 	 * @returns {ServerResponse} The response status 201 CREATED or an error response
 	 */
-	destroy: function (req, res) {
+    destroy: function(req, res) {
+        var self = this;
 		req[this.paramName].remove(function (err) {
 			if (err) {
 				return res.handleError(err);
 			}
 
-			delete req[this.paramName];
+			delete req[self.paramName];
 			return res.noContent();
 		});
 	},
@@ -160,7 +164,7 @@ ParamController.prototype = {
 	 * @param {Object|Function} router - The router to register the request parameter middleware on
 	 */
 	registerRouter: function (router) {
-		router.param(this.paramName, this.registerRequestParameter);
+		router.param(this.paramName, this.registerRequestParameter.bind(this));
 	}
 };
 

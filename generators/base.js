@@ -40,8 +40,9 @@ var Generator = module.exports = function Generator() {
 	this.humanName = this.originalAppname;
 	this.classedName = this._.classify(this.name);
 	this.modelName = this._.classify(this.name);
-	this.slug = this._.slugify(this.name);
 
+	this.features = this.config.get('features');
+	this.angularModules = this.config.get('angularModules');
 	this.sourceRoot(path.join(__dirname, '/templates'));
 
 	this.pluralize = function pluralize(str, force) {
@@ -53,8 +54,9 @@ var Generator = module.exports = function Generator() {
 	};
 
 	this.hasFilter = function (filter) {
-		return this.config.get('features')[filter];
-	}.bind(this);
+        return this.config.get('features')[filter];
+    }.bind(this);
+    this.modelEnum = [];
 
 	if (typeof this.env.options.appPath === 'undefined') {
 		try {

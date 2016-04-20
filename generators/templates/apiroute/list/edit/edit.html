@@ -30,12 +30,23 @@
 
             <span class="section-title"><%= _.capitalize(name) %> data</span>
 
-			<span layout="row" layout-align="start center">
-				<span flex="33"><%= _.capitalize(name) %> is active</span>
-				<md-switch name="active" class="no-label" aria-label="<%= name %> active" ng-model="edit.<%= name %>.active"></md-switch>
-			</span>
-
 			<span layout="row" layout-sm="column">
+<% modelEnum.model.forEach((el)=>{%>
+               <md-input-container flex>
+                   <label><%=el.ui.humanName%></label>
+                   <input name="<%=el.name%>" ng-model="edit.<%= name %>.<%= el.name %>">
+                   <div ng-messages="editForm.<%= name%>.<%= el.name%>" <%= (el["model"] && el.model["required"] && el.model.required)?"required":"" %>>
+                   <% if(el["model"] && el.model["required"] && el.model.required) %>
+                            <div ng-message = "required">
+                                <% if(el["ui"] && el.ui["messages"] && el.ui.messages["required"]) {%>
+                                <%= el.ui.messages.required %>
+                                <% } else { %>
+                                This is a required field.
+                                <% } %>
+                            </div>
+                   </div>
+               </md-input-container>    
+<%})%>
 				<md-input-container flex>
                     <label>Name</label>
                     <input name="name" ng-model="edit.<%= name %>.name" required mongoose-error>
