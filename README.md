@@ -12,7 +12,7 @@ Model driven API and API Route creation.
 
 ## Install
 ```bash
-$ npm install generator-material-app
+$ git clone https://github.com/capiotsoftware/generator-mean-material
 ```
 
 ## Quick Start
@@ -20,6 +20,7 @@ To quickly scaffold an application use the following commands (Answer all questi
 ```bash
 $ mkdir app && cd $_
 $ yo mean-material
+$ npm install <path>/generator-mean-material
 $ gulp build
 $ npm start
 ```
